@@ -16,7 +16,7 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @PostMapping
+    @PostMapping("/save")
     public ResponseEntity<String> saveCustomer(@RequestBody Customer customer) {
         customerService.saveCustomer(customer);
         return ResponseEntity.ok("Customer saved successfully");

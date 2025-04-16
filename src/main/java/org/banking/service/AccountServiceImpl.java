@@ -1,7 +1,9 @@
 package org.banking.service;
 
 import org.banking.Model.Account;
+import org.banking.Model.Customer;
 import org.banking.repository.AccountRepository;
+import org.banking.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +16,19 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private AccountRepository accountRepository;
 
+    @Autowired
+    private CustomerRepository customerRepository;
+
     @Override
-    public void createAccount(Account account) {
-        accountRepository.save(account);
+    public Account createAccount(Account account) {
+        Customer customer = account.getCustomer();
+
+        // Check if customer is new (transient) — customerId should be null
+        if (customer.getCustomerId() == null) {
+            customerRepository.save(customer);
+        }
+
+        return accountRepository.save(account);
     }
 
     @Override

@@ -5,7 +5,7 @@ import org.banking.Model.Account;
 import java.util.List;
 
 public interface AccountService {
-    void createAccount(Account account);
+    Account createAccount(Account account);
 
     Account getAccountByNumber(Long accountNumber);
 
